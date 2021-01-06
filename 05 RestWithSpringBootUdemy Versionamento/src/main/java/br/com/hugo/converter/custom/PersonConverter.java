@@ -10,7 +10,7 @@ import br.com.hugo.data.vo.v2.PersonVOV2;
 @Service
 public class PersonConverter {
 	
-	public PersonVOV2 convertEntityToVO(PersonVOV2 person) {
+	public PersonVOV2 convertEntityToVO(Person person) {
 		PersonVOV2 vo = new PersonVOV2();
 		
 		vo.setId(person.getId());
@@ -23,7 +23,7 @@ public class PersonConverter {
 		return vo;
 	}
 
-	public Person convertVOToEntity(Person person) {
+	public Person convertVOToEntity(PersonVOV2 person) {
 		Person entity = new Person();
 		
 		entity.setId(person.getId());

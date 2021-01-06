@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.hugo.converter.DozerConverter;
+import br.com.hugo.converter.custom.PersonConverter;
 import br.com.hugo.data.model.Person;
 import br.com.hugo.data.vo.PersonVO;
 import br.com.hugo.data.vo.v2.PersonVOV2;
@@ -18,6 +19,9 @@ public class PersonService {
 	@Autowired
 	PersonRepository personRepository;
 	
+	@Autowired
+	PersonConverter personConverter;
+	
 	public PersonVO create(PersonVO person) {
 		var entity = DozerConverter.parseObject(person, Person.class);
 		var vo = DozerConverter.parseObject(personRepository.save(entity), PersonVO.class);
@@ -25,8 +29,8 @@ public class PersonService {
 	}
 	
 	public PersonVOV2 createV2(PersonVOV2 person) {
-		var entity = DozerConverter.parseObject(person, Person.class);
-		var vo = DozerConverter.parseObject(personRepository.save(entity), PersonVOV2.class);
+		var entity = personConverter.convertVOToEntity(person);
+		var vo = personConverter.convertEntityToVO(personRepository.save(entity));
 		return vo;
 	}
 	
